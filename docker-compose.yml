@@ -3,6 +3,7 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:latest
+    container_name: burger-mongodb-1
     ports:
       - "27017:27017"
 
@@ -12,15 +13,11 @@ services:
       - "7000:8000"
     depends_on:
       - mongodb
-    environment:
-      MONGODB_URI: "mongodb://mongodb:27017/burger"
   
   populate_db:
     build: . 
     command: python populate_db/populate_db.py 
     depends_on:
       - mongodb
-    environment:
-      MONGODB_URI: "mongodb://mongodb:27017/burger"
 volumes:
   mongodb_data:
